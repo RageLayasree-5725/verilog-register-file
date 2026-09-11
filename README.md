@@ -1,37 +1,47 @@
 # 32×32-bit Register File — Verilog HDL
 
-A 32×32-bit Register File designed and functionally verified using **Verilog HDL** and **Xilinx Vivado**.
+<p align="center">
+  <b>RTL Design • Verilog HDL • Functional Verification • Xilinx Vivado</b>
+</p>
 
-This module is one of the fundamental building blocks used in a processor datapath and is being developed as part of my step-by-step RTL design learning journey.
+A synthesizable **32×32-bit Register File** designed in Verilog HDL and functionally verified using **Xilinx Vivado**.
 
-## Overview
+This project focuses on understanding how a processor stores, reads, and writes register data at the RTL level.
 
-A register file is a collection of registers used to store temporary data inside a processor.
+---
 
-This implementation contains:
+## 📌 Project Overview
 
-- **32 registers** (x0–x31)
-- **32-bit data width** for each register
-- **Two read ports**
-- **One write port**
-- **Synchronous write operation**
-- **Combinational read operation**
-- **Write-enable control**
-- **x0 implemented as a constant-zero register**
+A **Register File** is a collection of registers used by a processor to temporarily store data and operands.
 
-## Register File Architecture
+This implementation contains **32 registers**, each **32 bits wide**, with:
+
+- Two independent read ports
+- One write port
+- Synchronous write operation
+- Combinational read operation
+- Write-enable control
+- Dedicated x0 constant-zero behavior
+
+The design is implemented from RTL and verified through directed simulation.
+
+---
+
+## 🏗️ Architecture
 
 ```text
-                 ┌─────────────────────────┐
-       rs1 ─────►│                         │────► read_data1
-                 │                         │
-       rs2 ─────►│    32 × 32 Register    │────► read_data2
-                 │         File            │
-       rd  ─────►│                         │
-                 │                         │
- write_data ────►│                         │
-                 │                         │
-write_enable ──►│                         │
-                 │                         │
-      clk ──────►│                         │
-                 └─────────────────────────┘
+                         ┌──────────────────────────┐
+                         │                          │
+             rs1 ───────►│                          │──────► read_data1
+                         │                          │
+             rs2 ───────►│     32 × 32 Register    │──────► read_data2
+                         │          File            │
+                         │                          │
+              rd ───────►│                          │
+                         │                          │
+       write_data ──────►│                          │
+                         │                          │
+      write_enable ─────►│                          │
+                         │                          │
+              clk ──────►│                          │
+                         └──────────────────────────┘
