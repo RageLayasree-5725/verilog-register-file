@@ -1,47 +1,37 @@
-# 32×32-bit Register File — Verilog HDL
+# 32-bit RISC-V Register File
 
-<p align="center">
-  <b>RTL Design • Verilog HDL • Functional Verification • Xilinx Vivado</b>
-</p>
-
-A synthesizable **32×32-bit Register File** designed in Verilog HDL and functionally verified using **Xilinx Vivado**.
-
-This project focuses on understanding how a processor stores, reads, and writes register data at the RTL level.
-
----
+A 32-bit Register File designed in Verilog HDL as a core building block for a Single-Cycle RISC-V Processor.
 
 ## 📌 Project Overview
 
-A **Register File** is a collection of registers used by a processor to temporarily store data and operands.
+The Register File provides storage for 32 general-purpose registers, each 32 bits wide.
 
-This implementation contains **32 registers**, each **32 bits wide**, with:
+It supports:
 
-- Two independent read ports
-- One write port
-- Synchronous write operation
-- Combinational read operation
-- Write-enable control
-- Dedicated x0 constant-zero behavior
+- Two simultaneous read operations
+- One synchronous write operation
+- 32 registers (`x0`–`x31`)
+- 32-bit data width
+- Write enable control
+- RISC-V `x0` constant-zero behavior
 
-The design is implemented from RTL and verified through directed simulation.
+This module is designed as part of a larger Single-Cycle RISC-V Processor RTL implementation.
 
 ---
 
 ## 🏗️ Architecture
 
 ```text
-                         ┌──────────────────────────┐
-                         │                          │
-             rs1 ───────►│                          │──────► read_data1
-                         │                          │
-             rs2 ───────►│     32 × 32 Register    │──────► read_data2
-                         │          File            │
-                         │                          │
-              rd ───────►│                          │
-                         │                          │
-       write_data ──────►│                          │
-                         │                          │
-      write_enable ─────►│                          │
-                         │                          │
-              clk ──────►│                          │
-                         └──────────────────────────┘
+                 ┌──────────────────────────────┐
+                 │       32 × 32 Register       │
+                 │            File              │
+                 │                              │
+    rs1 ────────►│ Read Port 1 ───► read_data1  │
+                 │                              │
+    rs2 ────────►│ Read Port 2 ───► read_data2  │
+                 │                              │
+    rd ─────────►│                              │
+    write_data ─►│ Write Port                   │
+    write_enable►│                              │
+    clk ────────►│                              │
+                 └──────────────────────────────┘
